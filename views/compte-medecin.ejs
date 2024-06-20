@@ -1,0 +1,160 @@
+
+
+<div style="margin: 120px auto 10px; display: flex; max-width: 1200px;">
+
+    <div class="nav-patient">
+        <center>
+            <img src="/imgs/doctor.png" alt="">
+        </center>
+       
+        <a href="/compte-medecin">Mes patients</a>        
+        <a href="/medecins-rdv">Rendez-vous</a>
+        
+    </div>
+
+    <div class="content-patient">
+        <h2 class="title">Mes patients</h2>
+        <hr>
+        <div id="qrcodeform">
+            <button id="startButton" class="btn" style="padding:8px; background-color: orange;">
+                <i class="fa-solid fa-camera"></i>
+                Activer l'analyse Qr</button>
+            <button id="stopCamera" class="btn" onclick="stopCamera()" style="padding:8px;
+             background-color: brown;display: none;" >Arréter</button>
+            <!-- <button class="ShowListQRCode" onclick="DetailPatient()">Afficher le détail du patient</button> -->
+            <div id="videoContainer" style="display:none;">
+                <video id="video" width="300px" autoplay></video>
+            </div>
+            <canvas id="canvas" style="display:none;"></canvas>
+            <div class="recherchencours"></div>
+        </div>
+
+        <div id="patients">
+            <% if(patients.length == 0){ %>
+                <p>Aucun patient.</p>
+            <% } %>
+            <% patients.forEach(function(item) { %>
+                <!-- Ici, vous pouvez accéder à chaque item de dataArray -->
+                <div  id="patient_<%= item._id  %>" class="patient accepted"  >
+                    <div >
+                        <a href="/voir/detail?id=<%= item._id  %>"><h3><%= item.nom + " " + item.prenom  %></h3></a>
+                        <a href="/message_med?id=<%= item._id  %>">Envoyer un message</a>
+                        <small><%= item.createdAt  %></small><br>
+                        
+                    </div>
+                    
+                </div>
+            <% }) %>
+        </div>
+        
+          
+    </div>
+    
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
+<script>
+
+    function stopCamera() {
+        $('#startButton').show()
+        $('#stopCamera').hide()
+        $('#videoContainer').hide()
+        var video = document.getElementById('video');
+        var stream = video.srcObject;
+        var tracks = stream.getTracks();
+
+        tracks.forEach(function(track) {
+            track.stop(); // Arrêter chaque piste de la caméra
+        });
+
+        video.srcObject = null; // Libérer la source vidéo
+    }
+
+
+    var qrcodedata = ""
+    document.getElementById('startButton').addEventListener('click', function() {
+        navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+            var video = document.getElementById('video');
+            video.srcObject = stream;
+            video.play();
+            $('#startButton').hide()
+            $('#stopCamera').show()
+
+            document.getElementById('videoContainer').style.display = 'block'; // Afficher la zone vidéo
+            requestAnimationFrame(scan);
+        })
+        .catch(function (err) {
+            console.error(err);
+        });
+    });
+    var scanning = true;
+    function scan() {
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+            canvas.height = video.videoHeight;
+            canvas.width = video.videoWidth;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            var code = jsQR(imageData.data, imageData.width, imageData.height, {
+                inversionAttempts: "dontInvert",
+            });
+
+            if (code) {
+                console.log('QR Code detected:', code.data);
+                
+                document.getElementById('videoContainer').style.display = 'none';
+                // Faites quelque chose avec le contenu du QR code ici
+                video.pause()
+                scanning = false;
+                stopCamera()
+                $('#stopCamera').hide()
+                $('#startButton').show()
+
+                $('.recherchencours').text('Recherche en cours...')
+                setTimeout(() => {
+                    $.ajax({
+                    type:'POST',
+                    url:'/search-for-patient',
+                    data:{id:code.data},
+                    success:(res)=>{
+                        if(res.done){
+                            $('#patients').html(`
+                                <div  id="patient_${res.user._id}" class="patient accepted"  >
+                                    <div >
+                                        <a href="/voir/detail?id=${res.user._id}"><h3>${res.user.nom + " " + res.user.prenom}</h3></a>
+                                        <a href="/message_med?id=${res.user._id}">Envoyer un message</a>
+                                        <small>${res.user.createdAt}</small><br>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            `)
+                            $('.recherchencours').text('')
+                        }
+                        else{
+                            $('#patients').empty()
+                            $('.recherchencours').text('Aucun résultat trouvé')
+                        }
+                        
+                    }
+                })
+                }, 2000);
+                
+            }
+        }
+
+        if(scanning){
+            requestAnimationFrame(scan);
+
+        }
+      
+
+      
+
+    }
+</script>

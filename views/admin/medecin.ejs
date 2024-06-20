@@ -1,0 +1,64 @@
+<h2>Médecins</h2>
+<p>Ci-dessous sont listés les nouveaux médecins</p>
+<form class="form-search">
+    <label for="medecin">Médecin(s)</label>
+    <input type="text" id="medecin" placeholder="email">
+    <select name="" id="type">
+        <option value="">Récent</option>
+        <option value="nouveau">Nouveau</option>
+        <option value="ancien">Ancien</option>
+    </select>
+    <button class="btn">Filtrer</button>
+</form>
+<div id="medecins">
+    <% medecins.forEach(function(item) { %>
+        <!-- Ici, vous pouvez accéder à chaque item de dataArray -->
+        <div  id="patient_<%= item._id  %>" class="<%= item.confirme == 1 ? 'accepted patient' : 'patient' %>"  >
+            <div >
+                <a href="medecin/detail?id=<%= item._id  %>"><h3><%= item.nom + " " + item.prenom  %></h3></a>
+                <small><%= item.createdAt  %></small><br>
+                
+            </div>
+            <% if(item.confirme == 0){ %>
+            <div id="control_<%= item._id  %>" >
+                <button class="accept" onclick="AcceptUser('<%= item._id %>')">Accepter</button>
+                <button class="decline" onclick="DeclineUser('<%= item._id %>')">Refuser</button>
+            </div>
+            <% } %>
+        </div>
+    <% }) %>
+      
+    
+</div>
+
+
+<script>
+    const AcceptUser = (id)=>{
+        $('#control_'+id).find('.accept').text('En cours...')
+        $.ajax({
+            type:'POST',
+            url:'/accept-medecin',
+            data:{id},
+            success:(res)=>{
+                if(res.done){
+                    $('#control_'+id).hide()
+                    $('#patient_'+id).css({"border-left":"3px solid green"})
+                }
+            }
+        })
+    }
+
+    const DeclineUser = (id)=>{
+        $('#control_'+id).find('.decline').text('En cours...')
+        $.ajax({
+            type:'POST',
+            url:'/decline-medecin',
+            data:{id},
+            success:(res)=>{
+                if(res.done){
+                    $('#patient_'+id).slideUp(200)
+                }
+            }
+        })
+    }
+</script>

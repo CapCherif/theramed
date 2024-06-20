@@ -1,0 +1,16 @@
+<nav>
+    <img src="/imgs/logo.png" alt="">
+
+    <div class="liens">
+        <a href="/" class="<%= page=="home" ? "current": ""  %>" >Accueil</a>
+        <a href="/services" class="<%= page=="services" ? "current": ""  %>" >Service</a>
+
+        <% if(login){ %>
+            <a href="/compte" class="<%= page=="compte" ? "current": ""  %>" ><i class="fa-solid fa-user"></i> Compte</a>
+            <a href="/logout"> <i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a>
+        <% }else{ %>
+            <a href="/login" class="<%= page=="signin" ? "current": ""  %>" >Connexion</a>
+            <a href="/signup"  class="<%= page=="signup" ? "current": ""  %>">Inscription</a>
+        <% } %>
+    </div>
+</nav>

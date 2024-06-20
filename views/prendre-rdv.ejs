@@ -1,0 +1,96 @@
+
+
+<div style="margin: 120px auto 10px; display: flex; max-width: 1200px;">
+
+    <div class="nav-patient">
+        <center>
+            <img src="/imgs/user.png" alt="">
+        </center>
+        <center>
+            <img style="width: 100px;" src="/<%= qrcode  %>" alt="">
+        </center>
+        <a href="/compte">Message</a>
+        <a href="/prendre-rdv">Rendez-vous</a>
+        <a href="/mon-dossier">Dossier médicale</a>
+    </div>
+
+    <div class="content-patient">
+        <h3 class="title">Formulaire de prise de rendez-vous</h3>
+        <div class="prochain-rdv">
+            <% rdvs.forEach(function(item) { %>
+                <!-- Ici, vous pouvez accéder à chaque item de dataArray -->
+                <div class="rdv <%= item.status  %> flex" style="align-items: flex-end; justify-content: space-between;" id="rdv_<%= item._id %>"  >
+                    <div>
+                        <h4><%= item.title  %></h4>
+                        <p><%= item.date  %></p>
+                        <% if(item.status == "pending"){  %>
+                            <small>En cours.</small>
+                        <% }else if(item.status == "accepted"){ %>
+                            <small>Rendez-vous accépté.</small>
+                        <% }else{ %>
+                            <small>Refusé, veuillez choisir une autre date</small>
+                        <% } %>
+                    </div>
+                    <% if(item.status != "accepted"){ %>
+                        <button class="deletebtn" onclick="DeleteRdv('<%= item._id %>')">x Annuler</button>
+                    <% } %>
+                </div>
+            <% }) %>
+            
+        </div>
+        <form id="prendre-rdv" style="margin: 40px 0px;">
+            <label for="">Prendre un rendez-vous chez votre médecin traitant:</label><br>
+            <label for="title">Objet:</label>
+            <input type="text" placeholder="exemple: consultation.." id="title">
+            <br>
+            <label for="date">Date</label>
+            <input type="date" id="daterdv"><br>
+            <button class="btn">Valider</button>
+        </form>
+    </div>
+    
+</div>
+
+
+<script>
+    $('#prendre-rdv').submit((e)=>{
+        e.preventDefault()
+        $('#prendre-rdv button').text('Envoi en cours..').attr('disabled', true)
+        $.ajax({
+        type:'POST',
+        url:'/prendre-rdv',
+        data:{date:$('#daterdv').val(), object:$('#title').val() },
+        success:(res)=>{
+            if(res.done){
+                $('.prochain-rdv').prepend(`
+                    <div class="rdv pending flex" style="align-items: flex-end; justify-content: space-between;" id="rdv_${res.id}" >
+                        <div>
+                            <h4>${$('#title').val()}</h4>
+                            <p>${$('#daterdv').val()}</p>
+                            <small>En cours .</small>
+                        </div>
+                        <button class="deletebtn" onclick="DeleteRdv('${res.id}')">x Annuler</button>
+                    </div>
+                `)
+
+                $('#prendre-rdv button').text('Envoyer').attr('disabled', false)
+            }
+        }
+        })
+    })
+
+
+    const DeleteRdv = (id)=>{
+        $.ajax({
+            type:'POST',
+            url:'/delete-rdv',
+            data:{id},
+            success:(res)=>{
+                if(res.done){
+                    $("#rdv_"+id).slideUp(200)
+                }
+            }
+        })
+    }
+   
+</script>

@@ -1,0 +1,392 @@
+body{
+    margin: 0;
+    background-color: rgb(232, 241, 244);
+    font-family: "Poppins", sans-serif;
+}
+
+nav{
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 15px 10%;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+}
+
+.current{
+    color: rgb(51, 153, 231) !important;
+    border-bottom: 1px solid rgb(51, 153, 231) !important;
+}
+
+nav img{
+    width: 120px;
+}
+a{
+    text-decoration: none;
+}
+nav a{
+    transition: 0.3s;
+    color: rgb(62, 62, 62);
+    padding: 10px;
+    border: 1px solid transparent;
+}
+nav a:hover{
+    color: rgb(51, 153, 231);
+    border-bottom: 1px solid rgb(51, 153, 231);
+    transition: 0.3s;
+}
+
+
+.container{
+    margin-top: 60px;
+    /* padding: 10px; */
+}
+
+#fond{
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../imgs/fond.jpg');
+    height: 500px;
+    background-size: cover;
+    background-position: top;
+}
+
+#fond div{
+    max-width: 1000px;
+    margin: auto;
+    padding: 100px 10px 10px;
+}
+
+.title{
+    color: rgb(34, 214, 214);
+}
+
+#fond h1, #fond h2, #fond p {
+    color: white;
+}
+
+#fond span{
+    color: rgb(34, 214, 214);
+}
+#fond a{
+    display: block;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: rgb(34, 214, 214) ;
+    color: white;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+#services{
+    padding: 100px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    background-color: rgb(34, 214, 214);
+}
+.service{
+    margin: 10px 20px;
+    width: 200px;
+    color: white;
+    text-align: center;
+}
+
+.service i{
+    font-size: 50px;
+}
+
+.lighten{
+    opacity: 0.5;
+}
+.animation{
+    /* margin-right: 10px; */
+    position: absolute;
+    top: -3px;
+    left: -20%;
+    display: none;
+}
+
+
+.signup_form label{
+    display: block;
+}
+
+.signup_form{
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 20px;
+    border-top: 2px solid rgb(34, 214, 214);
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgb(222, 222, 222);
+    background-color: white;
+}
+
+.btn{
+    border: none;
+    color: white;
+}
+
+.signup_form .champ{
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; */
+    margin: 5px 0px;
+}
+.signup_form input, select{
+    width: 300px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+
+
+.signup_form button{
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px 0px;
+    transition: 0.3s;
+    background-color: rgb(34, 214, 214) ;
+}
+
+.signup_form button:hover{
+    transition: 0.3s;
+    background-color: rgb(27, 194, 152);
+}
+
+#signin_form{
+    max-width: 500px !important;
+}
+
+#signin_form input{
+    display: block;
+    margin: 10px 0px;
+}
+
+#signin_form .champ{
+    display: block;
+}
+
+.err{
+    padding: 8px 0px;
+    text-align: center;
+    background-color: rgb(245, 201, 201);
+    margin: 10px 0px;
+    color: rgb(78, 22, 22);
+    display: none;
+}
+
+
+.success{
+    padding: 10px;
+    text-align: center;
+    background-color: rgb(197, 240, 197);
+    color: rgb(4, 57, 4);
+    border-left: 3px solid green;
+    margin: 10px 10px;
+    display: none;
+}
+
+
+
+footer{
+    padding: 100px 10px;
+    background-color: rgb(48, 48, 48);
+}
+
+footer > div{
+    max-width: 700px;
+    margin: auto;
+    color: rgb(247, 247, 247);
+}
+
+footer a{
+    text-decoration: none;
+    color: rgb(247, 247, 247);
+}
+small{
+    color: gray;
+}
+
+
+.msg{
+    
+    display: flex;
+    align-items: flex-start;
+    margin: 10px 0px;
+}
+.msg img{
+    width: 30px;
+    margin: 0px 10px;
+}
+.left{
+    justify-content: left;
+}
+.right{
+    justify-content: right !important;
+}
+
+.msg > div{
+    background-color: lightblue;
+    max-width: 500px;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+.nav-patient{
+    background-color: white ;
+    padding: 10px;
+    width: 220px;
+    margin-right: 20px;
+}
+.nav-patient a{
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+
+.content-patient{
+    width: 800px;
+    background-color: white;
+    padding: 10px;
+}
+
+#add_msg{
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    margin-top: 20px;
+    padding: 10px;
+}
+#add_msg button{
+    background-color: rgb(27, 194, 152);
+    color: white;
+    padding: 8px 10px;
+    border-radius: 3px;
+}
+
+#add_msg textarea{
+    width: 700px;
+    display: block;
+    padding: 10px;
+    border: 1px solid lightgray;
+    margin: 10px 0px;
+}
+
+.patient{
+    padding: 10px;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0px;
+}
+
+.patient h3{
+    padding: 2px;
+    margin: 2px;
+}
+.accepted{
+    border-left: 3px solid green;
+}
+.flex{
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.detail .flex > div{
+    text-align: left;
+    width: 400px ;
+    border-bottom: 1px solid lightgray;
+}
+.detail{
+    max-width: 800px;
+    background-color: white;
+    padding: 10px;
+    margin: 100px auto 10px;
+}
+.detail textarea{
+    width: 90%;
+    display: block;
+    margin: 10px 0px;
+    height: 180px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.detail button, #prendre-rdv button{
+    padding: 8px 10px ;
+    background-color: rgb(27, 194, 152);
+    color: white;
+    border-radius: 3px;
+}
+
+.detail input, #prendre-rdv input{
+    display: block;
+    width: 300px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.diag{
+    background-color: rgb(222, 236, 241);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0px;
+}
+.diag h4{
+    margin: 5px 0px;
+}
+
+.pending{
+    background-color: rgb(225, 234, 248);
+    color: rgb(79, 79, 79);
+    border-left: 3px solid rgb(95, 154, 191);
+}
+.refused{
+    background-color: rgb(225, 234, 248);
+    color: rgb(79, 79, 79);
+    border-left: 3px solid red;
+}
+
+.rdv{
+    padding: 10px;
+    margin: 10px 0px;
+}
+.rdv h4{
+    margin: 0;
+}
+
+.nav-patient center img{
+    width: 100px;
+
+}
+
+.deletebtn{
+    background-color: rgb(250, 219, 219);
+    color: rgb(51, 51, 51);
+    border-radius: 3px;
+    border: none;
+    padding: 5px 10px;
+}
+.accept{
+    background-color: lightgreen;
+    color: green;
+    padding: 8px 10px;
+}
+.decline{
+    background-color: rgb(232, 188, 188);
+    color: brown;
+    padding: 8px 10px;
+}

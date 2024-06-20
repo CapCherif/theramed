@@ -1,0 +1,36 @@
+
+
+<div style="margin: 120px auto 10px; display: flex; max-width: 1200px;">
+
+    <div class="nav-patient">
+        <center>
+            <img src="/imgs/user.png" alt="">
+        </center>
+        <center>
+            <img style="width: 100px;" src="/<%= qrcode  %>" alt="">
+        </center>
+        <a href="/compte">Message</a>
+        <a href="/prendre-rdv">Rendez-vous</a>
+        <a href="/mon-dossier">Dossier médicale</a>
+    </div>
+
+    <div class="content-patient">
+        <h3 class="title">Mon dossier médicale:</h3>
+        <div id="res_diag">
+            <% if(diags.length == 0){ %>
+                <small>Dossier Vide.</small>
+            <% } %>
+            <% diags.forEach(diag => { %>
+               <div class="diag">
+                    <h4><%= diag.chez  %></h4>
+                    <p><%= diag.resultat  %></p>
+                    <small><%= diag.createdAt  %></small>
+               </div>
+            <% }); %>
+        </div>
+       
+    </div>
+    
+</div>
+
+

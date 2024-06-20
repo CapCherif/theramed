@@ -1,0 +1,76 @@
+
+
+
+<form class="sign_form" id="signin_form">
+    <h2 class="title">Identification - Admin:</h2>
+    
+    <hr>
+
+    <div class="champ">
+        <label for="email">Username</label>
+        <input type="text" placeholder="username..." id="username">
+    </div>
+    <br>
+    <div class="champ">
+        <label for="password">Password</label>
+        <input type="password" placeholder="secret..." id="password">
+    </div>
+   
+
+
+    <button type="submit" class="btn defaultb">
+        <span style="position: relative;">Connect
+            <div class="animation" style="left:-50%">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </span>
+    </button>
+    <div class="success">Successfully logged in, redirection..</div>
+    <div class="err">Authetication error</div>
+</form>
+
+<script>
+    
+$('#signin_form').parent().removeClass('admin-content')
+
+
+
+$('#signin_form').submit((e)=>{
+    e.preventDefault();
+
+    var username = $('#username').val();
+    var password = $("#password").val();
+
+    console.log(username, password)
+
+
+    $('.animation').show()
+    $('#signin_form button').addClass('lighten').attr('disabled', true)
+
+    
+    $.ajax({
+        type:'POST',
+        url:'/admin-login',
+        data:{username, password},
+        success:(response)=>{
+            $('.animation').hide()
+            $('#signin_form button').removeClass('lighten').attr('disabled', false)
+            if(response.err){
+                $('.err').slideDown();
+                setTimeout(() => {
+                    $('.err').slideUp()
+                }, 3000);
+            }
+            else if(response.login){
+                $('#username').val("")
+                $('#password').val("")
+                $('.success').slideDown()
+                setTimeout(() => {
+                    window.location.href="/admin"
+                }, 1000);
+            }
+           
+        }
+    })
+})
+</script>

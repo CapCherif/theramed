@@ -1,0 +1,75 @@
+
+
+<form class="signup_form" id="signup_form">
+    <h2 class="title">Inscription Médecin</h2>
+    <p>Si vous êtes un nouveau patient, veuillez vous inscrire dans ce <a href="/signup"> formulaire</a></p>
+    <hr>
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <div class="champ">
+            <label for="nom">Nom</label>
+            <input type="text" placeholder="Doe.." id="nom" required>
+        </div>
+        <div class="champ">
+            <label for="prenom">Prénom</label>
+            <input type="text" placeholder="John.." id="prenom" required>
+        </div>
+        
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <div class="champ">
+            <label for="spec">Spécialité</label>
+            <select name="spec" id="spec">
+                <option value="spec1">Spécialité 1</option>
+                <option value="spec2">Spécialité 2</option>
+                <option value="spec3">Spécialité 3</option>
+                <option value="spec4">Spécialité 4</option>
+            </select>
+        </div>
+        <div class="champ">
+            <label for="email">Email</label>
+            <input type="email" placeholder="YourEmail@mail.com" id="email" required>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <div class="champ">
+            <label for="adresse">Adresse</label>
+            <input type="text" placeholder="adresse, région.." id="adresse" required>
+        </div>
+        <div class="champ">
+            <label for="phone">Téléphone</label>
+            <input type="text" placeholder="+3300242513...." id="phone" required>
+        </div>
+    </div>
+    
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <div class="champ">
+            <label for="psw">Mot de passe</label>
+            <input type="password" placeholder="secret..." id="psw" required>
+        </div>
+        <div class="champ">
+            <label for="cpsw">Confirmation du mot de passe</label>
+            <input type="password"  placeholder="secret..." id="cpsw" required>
+        </div>
+    </div>
+
+
+    <button type="submit" class="btn defaultb">
+        <span style="position: relative;">Valider mon inscription
+            <div class="animation">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </span>
+        
+    </button>
+
+    <div class="success">
+        Enregistrement réussi, veuillez patienter pendant l'activation de votre compte.
+    </div>
+    <div class="err">
+        
+    </div>
+</form>
+
+<script src="/js/signup-medecin.js"></script>

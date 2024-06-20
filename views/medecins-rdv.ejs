@@ -1,0 +1,85 @@
+
+
+<div style="margin: 120px auto 10px; display: flex; max-width: 1200px;">
+
+    <div class="nav-patient">
+        <center>
+            <img src="/imgs/doctor.png" alt="">
+        </center>
+        
+        <a href="/compte-medecin">Mes patients</a>        
+        <a href="/medecins-rdv">Rendez-vous</a>
+        
+    </div>
+
+    <div class="content-patient">
+        <h2 class="title">Rendez-vous</h2>
+        <div class="rdvs">
+            <% if(rdvs.length == 0){ %>
+                <p>Aucun rendez-vous pour l'instant.</p>
+            <% } %>
+            <% rdvs.forEach(rdv => { %>
+                <% if(rdv.status == "pending"){ %>
+                    <div class="rdv pending" id="rdv_<%= rdv._id  %>">
+                        <div>
+                            <h4><%= rdv.title  %></h4>
+                            <p><%= rdv.date  %></p>
+                            <small><%= rdv.patientName  %></small>
+                        </div>
+                        <div id="control_<%= rdv._id  %>">
+                            <button class="btn accept" onclick="acceptRdv('<%= rdv._id %>' )">Accepter</button>
+                            <button class="btn decline" onclick="refuseRdv('<%= rdv._id %>')">Refuser</button>
+                        </div>
+                    </div>
+                <% }else if(rdv.status == "accepted"){ %>
+                    <div class="rdv accepted">
+                        <div>
+                            <h4><%= rdv.title %></h4>
+                            <p><%= rdv.date %></p>
+                            <small><%= rdv.patientName %></small>
+                        </div>                       
+                    </div>
+                <% } %>
+            <% });  %>
+            
+            
+        </div>
+        
+    </div>
+    
+</div>
+
+
+<script>
+    const acceptRdv = (id)=>{
+        $('#control_'+id).find('.accept').text('En cours...')
+        $.ajax({
+            type:'POST',
+            url:'/accept-rdv',
+            data:{id},
+            success:(res)=>{
+                if(res.done){
+                    $('#rdv_'+id).removeClass("pending").addClass('accepted')
+                    $('#control_'+id).hide()
+                    
+                }
+                
+            }
+        })
+    }
+
+    const refuseRdv = (id)=>{
+        $('#control_'+id).find('.decline').text('En cours...')
+        $.ajax({
+            type:'POST',
+            url:'/decline-rdv',
+            data:{id},
+            success:(res)=>{
+                if(res.done){
+                    $('#rdv_'+id).slideUp(200)
+                }
+            }
+        })
+    }
+   
+</script>

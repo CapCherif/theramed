@@ -1,0 +1,85 @@
+
+
+<form class="signup_form" id="signup_form">
+    <h2 class="title">Inscription Patient</h2>
+    <p>Si vous êtes un nouveau médecin, veuillez vous inscrire dans ce <a href="/signup-medecin"> formulaire</a></p>
+    <p>Si vous avez déja un compte en tant que médecin, rendez-vous <a href="/signin-medecin"> ici</a></p>
+    <hr>
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <div class="champ">
+            <label for="nom">Nom</label>
+            <input type="text" placeholder="Doe.." id="nom" required>
+        </div>
+        <div class="champ">
+            <label for="prenom">Prénom</label>
+            <input type="text" placeholder="John.." id="prenom" required>
+        </div>
+        
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <div class="champ">
+            <label for="sexe">Sexe</label>
+            <select name="sexe" id="sexe">
+                <option value="homme">Homme</option>
+                <option value="femme">Femme</option>
+            </select>
+        </div>
+        
+        <div class="champ">
+            <label for="birth">Date de naissance:</label>
+            <input type="text" placeholder="jj/mm/yy" id="birth" required>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <div class="champ">
+            <label for="adresse">Adresse</label>
+            <input type="text" placeholder="adresse, région.." id="adresse" required>
+        </div>
+        <div class="champ">
+            <label for="ville">Ville</label>
+            <input type="text" placeholder="votre ville actuelle..." id="ville" required>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        
+        <div class="champ">
+            <label for="phone">Téléphone</label>
+            <input type="text" placeholder="+3300242513...." id="phone" required>
+        </div>
+        <div class="champ">
+            <label for="email">Email</label>
+            <input type="email" placeholder="YourEmail@mail.com" id="email" required>
+        </div>
+    </div>
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <div class="champ">
+            <label for="psw">Mot de passe</label>
+            <input type="password" placeholder="secret..." id="psw" required>
+        </div>
+        <div class="champ">
+            <label for="cpsw">Confirmation du mot de passe</label>
+            <input type="password"  placeholder="secret..." id="cpsw" required>
+        </div>
+    </div>
+
+
+    <button type="submit" class="btn defaultb">
+        <span style="position: relative;">Valider mon inscription
+            <div class="animation">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </span>
+        
+    </button>
+
+    <div class="success">
+        Enregistrement réussi, veuillez patienter pendant l'activation de votre compte.
+    </div>
+    <div class="err">
+        
+    </div>
+</form>
+
+<script src="/js/signup.js"></script>

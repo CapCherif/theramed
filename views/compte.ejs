@@ -1,0 +1,78 @@
+
+
+<div style="margin: 120px auto 10px; display: flex; max-width: 1200px;">
+
+    <div class="nav-patient">
+        <center>
+            <img src="/imgs/user.png" alt="">
+        </center>
+        <center>
+            <img style="width: 100px;" src="/<%= qrcode  %>" alt="">
+        </center>
+        <a href="/compte">Message</a>
+        <a href="/prendre-rdv">Rendez-vous</a>
+        <a href="/mon-dossier">Dossier médicale</a>
+    </div>
+
+    <div class="content-patient">
+        <div class="msgs">
+            <% messages.forEach(message => { %>
+                <% if(message.message_patient != ""){ %>
+                    <div class="msg">
+                        <img src="/imgs/user.png" alt="">
+                        
+                        <div>
+                            <%= message.message_patient  %>
+                        </div>
+                    </div>
+                <% }else if(message.message_medecin != ""){ %>
+                    <div class="msg">
+                        <img src="/imgs/doctor.png" alt="">
+                        <div>
+                           <%= message.message_medecin  %>
+                        </div>
+                    </div>
+                <% } %>
+            <% });  %>
+            
+            
+        </div>
+        <form id="add_msg">
+            <label for="">Ajouter un message:</label><br>
+            
+            <textarea  id="inputmsg" required></textarea>
+            <button class="btn">Envoyer</button>
+        </form>
+    </div>
+    
+</div>
+
+
+<script>
+    $('#add_msg').submit((e)=>{
+        e.preventDefault()
+        $('#add_msg button').text('Envoi en cours..')
+        $.ajax({
+        type:'POST',
+        url:'/envoi-msg',
+        data:{msg:$('#inputmsg').val(), message_provenance:"patient"},
+        success:(res)=>{
+            if(res.done){
+                $('.msgs').append(`
+                    <div class="msg">
+                        <img src="/imgs/user.png" alt="">
+                        
+                        <div>
+                            ${$('#inputmsg').val()}
+                        </div>
+                    </div>
+                `)
+
+                $('#inputmsg').val("")
+                $('#add_msg button').text('Envoyer')
+            }
+        }
+        })
+    })
+   
+</script>
